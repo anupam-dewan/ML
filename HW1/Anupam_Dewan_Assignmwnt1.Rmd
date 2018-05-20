@@ -1,0 +1,194 @@
+---
+title: Machine Learning for Problem Solving(Spring 2018)
+author: Anupam Dewan(adewan)
+output: 
+  html_document:
+    toc: true
+    theme: paper
+    highlight: tango
+---
+
+
+```{r echo =FALSE, results='hide',message=FALSE, warning = FALSE}
+invisible(require(dplyr))
+invisible(require(magrittr))
+invisible(require(ggplot2))
+invisible(require(tidyr))
+invisible(require(knitr))
+```
+
+###Question 5: Exploraratory Data Analysis and KDE
+
+#5.1 Summary Statistics and what are meaningless qunantities?
+  
+```{r echo=FALSE,supress_warningg, warning = FALSE}
+terminations <- read.csv("~/SPRING 2018/MINI3/MLPS/HW1/hw1_data/termination.csv")
+kable(summary(terminations))
+new_terminations=dplyr::select(terminations,-gender_full)
+kable(summary(new_terminations))
+```
+
+According to summary statistics it seems that Gender_full and Gender_Short represent the same thing and therefore we eleminate one of them.(eliminated Gender_full)
+
+#5.2 The percentage of terminated employees out of all employees for each year and Average termination rate in 10 years
+ 
+```{r echo=FALSE,supress_warninggg, warning = FALSE}
+df1<-new_terminations %>% group_by(STATUS_YEAR)
+mydf<-dplyr::filter(df1,STATUS=="TERMINATED")
+terminated_count<-mydf %>% group_by(STATUS_YEAR) %>% summarise(count = n())
+terminated_count1<-mydf %>% group_by(STATUS_YEAR,termreason_desc) %>% summarise(count = n())
+term_join<-inner_join(terminated_count,terminated_count1,by =c("STATUS_YEAR"))
+colnames(term_join)<-c("STATUS_YEAR","total","reason","segregration")
+all_count<-new_terminations %>% group_by(STATUS_YEAR)%>% summarise(count = n())
+all_count1<-new_terminations %>% group_by(STATUS_YEAR,termreason_desc)%>% summarise(count = n())
+percentages<-inner_join(terminated_count,all_count,by=c("STATUS_YEAR"))
+colnames(percentages)<-c("STATUS_YEAR","terminate","total")
+percentages<-cbind(percentages,percentages$terminate/percentages$total*100)
+df2<-dplyr::select(percentages,-terminate,-total)
+colnames(df2)<-c("STATUS_YEAR","percentage")
+kable(df2)
+kable(mean(df2$percentage))
+```
+
+As can be seen from table above the percentage of termination seems to be in the rangeof 2-3% year on year basis.
+Moreover, the average termination rate is around 3%
+
+#5.3 A stacked bar chart of terminates.
+  
+```{r echo=FALSE}
+term_join$STATUS_YEAR<-as.factor(term_join$STATUS_YEAR)
+g<-ggplot(term_join,aes(x =STATUS_YEAR,y=segregration,fill=factor(reason)))
+g+geom_bar(stat="identity", width =0.4)+ labs(title ="Propotional distribution of different types of termination",x="Years",y="Number of terminated emoloyees",fill="Reasons")
+```
+
+Interpretation:
+Majorly from 2006-2010 there was no layoff per se, and the major contribution of termination of employee service was due to the retirement.
+From 2010-2013 the distribution started to spread out evenly and almost similar percentage of employees were terminating due to either of the two reasons.
+Post 2013, company has started to lay off its employees which has then become one of the major reasons for employee service terminations.
+
+#5.4 :Does Age affect termination?
+  
+```{r echo=FALSE}
+boxplot(age~STATUS,
+        data =new_terminations, 
+        main = "Does Age affect termination?",
+        xlab="Age of Employees", 
+        ylab="Status of Employees")
+      
+```
+
+Interpretation:
+Seeing the box plot we can say that the median age of employees whose status is active is around 40 whereas the ones which have been terminated have an average age of 60.
+This shows that higher ages leads to termination more often.Therfore, we can say that Age is an important factor in termination.
+
+
+#5.5 Does Length of Service affect termination? 
+  
+```{r}
+gauss <- function(x) {
+  y <-1/sqrt(2*pi) * exp(-(x^2)/2)
+  return(y)
+}
+kde_func<-function(x,status){
+  col<-c()
+  stat <-dplyr::filter(new_terminations,STATUS==status)
+  obv_len <- dplyr::select(stat,length_of_service)
+  for (j in  obv_len){
+      diff<-x-j
+      density_estimates <-gauss(diff)
+      col<-c(col,density_estimates)
+      diff<-0
+      density_estimates<-0
+  }
+  summ<-sum(col)
+  est<-summ/nrow(obv_len)
+  return(est)
+}
+  x<-sample(seq(0,30,0.1))
+  active_col<-c()
+  term_col<-c()
+  for(i in x){
+    active_col<-c(active_col,kde_func(i,"ACTIVE"))
+    term_col<-c(term_col,kde_func(i,"TERMINATED"))
+  }  
+  active_df<-data.frame(active_col)
+  term_df<-data.frame(term_col)
+  df<-cbind(active_df,term_df)
+  ggplot(df, aes(x)) +                   
+  geom_line(aes(y=term_col), colour="red") + 
+  geom_line(aes(y=active_col), colour="green") 
+```
+
+Interpretation:
+It can be deduced that the red line(terminated employees) has more bumps which menas that length of service sees alot of variation among terminated employees
+
+###Question 6: Applied Linear Regression
+
+```{r echo=FALSE,results='hide',message=FALSE, warning = FALSE}
+require(glmnet)
+library(ISLR)
+attach(Wage)
+```
+
+#6.1: Regressing wage on age:
+
+```{r echo=FALSE}
+wage_age_regress<-lm(wage~age,data=Wage)
+summary(wage_age_regress)
+plot(age,wage)
+abline(wage_age_regress)
+```
+
+#6.2:Regressing Wage on age,jobclass,interraction of job class and age
+  
+```{r echo=FALSE}
+wage_age_jobclass_regress<-lm(wage~age+jobclass+age:jobclass,data =Wage)
+summary(wage_age_jobclass_regress)
+```
+
+Interpretation:
+
+1) We see that for every 1 year increase in age, and keeping other parameters constant wage       increases by  a factor of 0.07.
+2) We also say that, for every increase of 1 level in job class increases wage by a factor of     22.7
+3) We also can comment that if there is an increase of 1 $ and an increase of 1 level of job class the wage actually decreases by factor of 0.16
+
+#6.3:Regressing wage on 4th degree polynomial of age:
+
+```{r echo=FALSE}
+regress_forth_deg <- lm(wage ~ I(age^4))
+summary(regress_forth_deg)
+plot(wage~age)
+abline(regress_forth_deg)
+```
+
+Interpretation:
+It shows that, wage almost remains round about in the similar range across the ages from 20-60(which is around 100)
+
+
+#6.4:Regressing wage with all parameters
+
+```{r echo=FALSE}
+require(ISLR)
+require(knitr)
+attach(Wage)
+wage_interract_all <-lm(wage~(year+age+maritl+race+education+jobclass+health+health_ins)^2,data=Wage)
+regress_coff<-wage_interract_all$coef
+smry<-summary(wage_interract_all)$coef
+```
+
+#6.5 Lasso Regression and Comparision between coeffecients
+
+```{r echo=FALSE}
+require(glmnet)
+y_var<-wage
+x_var<-model.matrix(wage~(year+age+maritl+race+education+jobclass+health+health_ins)^2,data=Wage)
+x<-x_var[,-1]
+lasso_reg<-glmnet(x,y_var)
+lasso_coff<-coef(lasso_reg,s=0.04)
+plot(regress_coff,lasso_coff,xlab = "Unregularized Coffecients value",ylab="Lasso Coffecients value",title("Lasso V/s Unregularized Coffecients Comparison"))
+```
+
+Interpretation:
+We can observe from the sctter plot that many lasso and unregularized coffecient values match at lower values around 0 (that is why it has a darker black dot at 0).Moreover, we find that Lasso coffecients values are generally surrounded at or around 0, because now the coffecient value get regularized and useless variebles are penalized to reduction in coffeceint values.s
+
+

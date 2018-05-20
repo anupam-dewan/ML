@@ -1,0 +1,17 @@
+```{r echo=false}
+xtest<-read_csv("~/SPRING 2018/MINI3/MLPS/HW2/LR/XTest.csv")
+xtrain<- read_csv("~/SPRING 2018/MINI3/MLPS/HW2/LR/XTrain.csv")
+ytest<- read_csv("~/SPRING 2018/MINI3/MLPS/HW2/LR/yTest.csv")
+ytrain<- read_csv("~/SPRING 2018/MINI3/MLPS/HW2/LR/yTrain.csv")
+vocab<- read_csv("~/SPRING 2018/MINI3/MLPS/HW2/LR/vocabulary.csv")
+```
+
+
+```{r}
+require(glmnet)
+y<-data.matrix(ytrain)
+x<-data.matrix(xtrain)
+model <- glmnet(x ,y, family = 'binomial',lambda=0)
+y_pred <- predict(model,newx=data.matrix(xtest),s=0)
+table(data.matrix(ytest), y_pred > 0.5)
+```

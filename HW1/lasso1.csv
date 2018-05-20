@@ -1,0 +1,123 @@
+"","X1"
+"(Intercept)",-2531.37043108088
+"year",1.30229896020732
+"age",0
+"maritl2. Married",12.1959237309821
+"maritl3. Widowed",0
+"maritl4. Divorced",7.53600382834063
+"maritl5. Separated",0
+"race2. Black",0.440312410575098
+"race3. Asian",0
+"race4. Other",0
+"education2. HS Grad",0.29792100398735
+"education3. Some College",-1.0382345839324
+"education4. College Grad",22.9072433743186
+"education5. Advanced Degree",8.83583062294538
+"jobclass2. Information",1.95724170409717
+"health2. >=Very Good",-4.12439575704905
+"health_ins2. No",-16.5674621900143
+"year:age",1.61775344979592e-06
+"year:maritl2. Married",0.00126279712967933
+"year:maritl3. Widowed",0
+"year:maritl4. Divorced",0.000153009577429683
+"year:maritl5. Separated",0
+"year:race2. Black",7.86007331178254e-06
+"year:race3. Asian",0
+"year:race4. Other",0
+"year:education2. HS Grad",0.00225743111724892
+"year:education3. Some College",-4.25167541816782e-05
+"year:education4. College Grad",0
+"year:education5. Advanced Degree",0.00118950623814948
+"year:jobclass2. Information",0.000235631278160821
+"year:health2. >=Very Good",-8.98728282935313e-05
+"year:health_ins2. No",-0.000354997729457809
+"age:maritl2. Married",-0.0464388039993572
+"age:maritl3. Widowed",-0.00504504299738678
+"age:maritl4. Divorced",-0.00686185362994558
+"age:maritl5. Separated",0.0801642403726195
+"age:race2. Black",0
+"age:race3. Asian",-0.14464771900135
+"age:race4. Other",0.140046393182937
+"age:education2. HS Grad",0
+"age:education3. Some College",0.470702661398042
+"age:education4. College Grad",0.0299158554243082
+"age:education5. Advanced Degree",0.399768871446309
+"age:jobclass2. Information",0.016609764149582
+"age:health2. >=Very Good",0.242357371062805
+"age:health_ins2. No",0.0641529156898385
+"maritl2. Married:race2. Black",-4.73840662030995
+"maritl3. Widowed:race2. Black",0
+"maritl4. Divorced:race2. Black",-12.6881526509373
+"maritl5. Separated:race2. Black",1.35619388594112
+"maritl2. Married:race3. Asian",-7.54054860175782
+"maritl3. Widowed:race3. Asian",-16.6516456541131
+"maritl4. Divorced:race3. Asian",-5.9788728832587
+"maritl5. Separated:race3. Asian",-3.08563574441156
+"maritl2. Married:race4. Other",-6.78405862406252
+"maritl3. Widowed:race4. Other",-2.76868847275883
+"maritl4. Divorced:race4. Other",-20.3712783409907
+"maritl5. Separated:race4. Other",0
+"maritl2. Married:education2. HS Grad",4.78216872753719
+"maritl3. Widowed:education2. HS Grad",7.69406327425583
+"maritl4. Divorced:education2. HS Grad",0
+"maritl5. Separated:education2. HS Grad",15.2524626002984
+"maritl2. Married:education3. Some College",2.322843133714
+"maritl3. Widowed:education3. Some College",0
+"maritl4. Divorced:education3. Some College",-3.66922012591717
+"maritl5. Separated:education3. Some College",1.79551731033989
+"maritl2. Married:education4. College Grad",9.48819236693826
+"maritl3. Widowed:education4. College Grad",6.04331345042391
+"maritl4. Divorced:education4. College Grad",5.17146666286403
+"maritl5. Separated:education4. College Grad",14.2156165132384
+"maritl2. Married:education5. Advanced Degree",19.0496762701897
+"maritl3. Widowed:education5. Advanced Degree",-15.0581085880105
+"maritl4. Divorced:education5. Advanced Degree",-10.9738667143459
+"maritl5. Separated:education5. Advanced Degree",138.750959890423
+"maritl2. Married:jobclass2. Information",-2.9561763479508
+"maritl3. Widowed:jobclass2. Information",-13.7856430703283
+"maritl4. Divorced:jobclass2. Information",2.60420147982124
+"maritl5. Separated:jobclass2. Information",-9.40773388097649
+"maritl2. Married:health2. >=Very Good",0
+"maritl3. Widowed:health2. >=Very Good",7.0497338478985
+"maritl4. Divorced:health2. >=Very Good",-0.827446068841047
+"maritl5. Separated:health2. >=Very Good",-2.85966757120209
+"maritl2. Married:health_ins2. No",0.637364047136971
+"maritl3. Widowed:health_ins2. No",6.26202260807684
+"maritl4. Divorced:health_ins2. No",-7.62877053490524
+"maritl5. Separated:health_ins2. No",4.26448996223164
+"race2. Black:education2. HS Grad",2.84244415217916
+"race3. Asian:education2. HS Grad",-2.35279492198292
+"race4. Other:education2. HS Grad",-2.79930223553751
+"race2. Black:education3. Some College",-1.93534988923012
+"race3. Asian:education3. Some College",-4.54148502313904
+"race4. Other:education3. Some College",7.68866251667452
+"race2. Black:education4. College Grad",-5.64399740652557
+"race3. Asian:education4. College Grad",9.00872702020023
+"race4. Other:education4. College Grad",-35.0471293274427
+"race2. Black:education5. Advanced Degree",-5.72023759749674
+"race3. Asian:education5. Advanced Degree",0.727026970477377
+"race4. Other:education5. Advanced Degree",-36.7279686073975
+"race2. Black:jobclass2. Information",4.24897052283742
+"race3. Asian:jobclass2. Information",5.23546308984258
+"race4. Other:jobclass2. Information",9.25879745695757
+"race2. Black:health2. >=Very Good",-4.49356812416936
+"race3. Asian:health2. >=Very Good",6.22449932641939
+"race4. Other:health2. >=Very Good",-7.80279050206203
+"race2. Black:health_ins2. No",0.735523498969528
+"race3. Asian:health_ins2. No",-2.18027274309562
+"race4. Other:health_ins2. No",-4.31245820983694
+"education2. HS Grad:jobclass2. Information",-2.0400107359512
+"education3. Some College:jobclass2. Information",-0.026080869418843
+"education4. College Grad:jobclass2. Information",2.83237125407703
+"education5. Advanced Degree:jobclass2. Information",14.3983794307293
+"education2. HS Grad:health2. >=Very Good",0.159087239900043
+"education3. Some College:health2. >=Very Good",-1.19139961535889
+"education4. College Grad:health2. >=Very Good",2.04986340908623
+"education5. Advanced Degree:health2. >=Very Good",4.26685179355705
+"education2. HS Grad:health_ins2. No",0
+"education3. Some College:health_ins2. No",1.92199018349848
+"education4. College Grad:health_ins2. No",-10.4354144561416
+"education5. Advanced Degree:health_ins2. No",-8.58544676740209
+"jobclass2. Information:health2. >=Very Good",0
+"jobclass2. Information:health_ins2. No",-0.456019901233463
+"health2. >=Very Good:health_ins2. No",-0.151084474916986
